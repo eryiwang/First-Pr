@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+ <head>
+  <title> new document </title>  
+  <meta http-equiv="Content-Type" content="text/html; charset=gbk"/>  
+   <script type="text/javascript"> 
+    //载入时的鼠标函数
+      window.onload = function(){
+          var tr=document.getElementsByTagName("tr");
+          for(var i= 0;i<tr.length;i++)
+          {
+              bgcChange(tr[i]);
+          }
+         document.getElementById("addin").style.display="none";                     //隐藏添加信息输入框
+         document.getElementById("delete_div").style.display="none";                //隐藏删除信息输入框
+      }   
+      //鼠标扫过事件函数      
+     function bgcChange(obj)
+     {
+        obj.onmouseover=function(){
+            obj.style.backgroundColor="#f2f2f2";
+        }
+        obj.onmouseout=function(){
+            obj.style.backgroundColor="#fff";
+        }
+     }
+     //  显示添加信息输入框
+      function add(){
+        document.getElementById("addin").style.display="block";  
+        }
+    // 编写一个函数，供添加按钮调用，动态在表格的最后一行添加子节点；
+     function addline(){
+       var newtr=document.createElement("tr");
+       var xh=document.createElement("td");
+       var xm=document.createElement("td");
+       var nl=document.createElement("td");
+       var td=document.getElementsByTagName("td");
+       for (var i = 0; i < td.length; i++) {
+          if(td[i].innerHTML===document.getElementById("number").value){
+            var err=1;
+             document.getElementById("number").value="xh";
+             document.getElementById("name1").value="";
+             document.getElementById("age").value="";
+             document.getElementById("addin").style.display="none"; 
+            alert("学号已存在");                                                             //判断学号是否已经存在1
+          }
+       }
+       if(err!==1){
+       xh.innerHTML=document.getElementById("number").value;
+       xm.innerHTML=document.getElementById("name1").value;
+       nl.innerHTML=document.getElementById("age").value;
+       var tableST=document.getElementById("table");
+       tableST.appendChild(newtr);
+       newtr.appendChild(xh);
+       newtr.appendChild(xm);
+       newtr.appendChild(nl);
+       document.getElementById("number").value="xh";
+       document.getElementById("name1").value="";
+       document.getElementById("age").value="";
+       document.getElementById("addin").style.display="none"; 
+
+       var tr=document.getElementsByTagName("tr");
+          for(var i= 0;i<tr.length;i++)
+          {
+              bgcChange(tr[i]);
+          }                                                             //添加后鼠标也要有特效
+       }       
+    }
+    // 显示删除输入界面
+    function delete_information(){
+        document.getElementById("delete_div").style.display="block";  
+        }
+    //删除信息函数
+    function delete_1(){
+        var delete_value=document.getElementById("delete_number").value;
+        var td=document.getElementsByTagName("td");
+       for (var i = 0; i < td.length; i++) {
+           if (td[i].innerHTML===delete_value) {
+            td[i].parentNode.parentNode.removeChild(td[i].parentNode);
+            document.getElementById("delete_div").style.display="none"; 
+           }
+       }
+       if (document.getElementById("delete_div").style.display!="none") {
+        alert("没有这个学生");
+       }
+       document.getElementById("delete_number").value="xh";
+    }
+   
+  </script>  
+ </head> 
+ <body> 
+       <table border="1" width="50%" id="table">
+       <tr>
+        <th>学号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+       </tr>  
+
+       <tr>
+        <td>xh001</td>
+        <td>王小明</td>
+        <td>15</td>   
+       </tr>
+
+       <tr>
+        <td>xh002</td>
+        <td>刘小芳</td>
+        <td>20</td>   
+       </tr>  
+       </table>
+
+       <input type="button" value="添加信息" onclick="add()" />  
+        <input type="button" value="删除信息" onclick="delete_information()" /> 
+    
+    <div id="addin">
+      <label for="number">学号:</label>
+      <input type="text"  name="number" id="number" value="xh" />
+      <label for="name">姓名:</label>
+      <input type="text"  name="name" id="name1" value="" />
+      <label for="age">年龄:</label>   
+      <input type="text" name="age" id="age" />
+      <input type="button" value="确定"  name="conform" onclick="addline()" />
+    </div> 
+
+    <div id="delete_div">
+        <label for="number">要删除的学号:</label>
+        <input type="text"  name="number" id="delete_number" value="xh" />
+        <input type="button" value="删除"  name="shanchu" onclick="delete_1()" />
+    </div>
+ </body>
+</html>
